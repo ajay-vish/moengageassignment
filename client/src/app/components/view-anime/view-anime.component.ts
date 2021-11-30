@@ -21,14 +21,14 @@ export class ViewAnimeComponent implements OnInit {
 	) {}
 	comment: string = "";
 	currentRate: any;
-	comments: any;
+	comments: any = '';
 	anime: any;
 	episodes: any;
 	isLoading = true;
 	ngOnInit(): void {
 		this.getAnime(this.data.id);
 		this.getEpisodes(this.data.id);
-		this.comments = localStorage.getItem(this.data.id.toString());
+		this.comments = localStorage.getItem(this.data.id.toString()) ? localStorage.getItem(this.data.id.toString()) : '';
 	}
 
 	getAnime(id: number) {
@@ -42,7 +42,6 @@ export class ViewAnimeComponent implements OnInit {
 		this.animeService.getEpisodes(id).subscribe((res: any) => {
 			console.log("Episode", res);
 			this.episodes = res.data;
-			this.isLoading = false;
 		});
 	}
 	
@@ -57,5 +56,7 @@ export class ViewAnimeComponent implements OnInit {
 				duration: 3000,
 			});
 		}
+		this.comments = localStorage.getItem(this.data.id.toString()) ? localStorage.getItem(this.data.id.toString()) : '';
+
 	}
 }
