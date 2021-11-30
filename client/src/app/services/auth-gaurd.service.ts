@@ -6,7 +6,7 @@ import { AuthService } from './auth.service';
   providedIn: 'root',
 })
 export class AuthGuardService {
-  login = "http://localhost:4200/auth/";
+  login = "https://moengage-ajay.herokuapp.com/auth/";
   clientId = 'ab7e4a3c-1422-40ba-a412-2847e73939d9';
   constructor(public auth: AuthService, public router: Router) {}
   canActivate(): boolean {
