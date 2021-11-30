@@ -1,0 +1,43 @@
+.container{
+    padding: 0 10rem;
+}
+.flex-container{
+    display: flex;
+    flex-direction: row;
+    padding: 1rem;
+}
+
+.search-chip-list {
+    width: 100%;
+  }
+
+img{
+    padding-right: 1rem;
+    height: 200px;
+}
+
+h2{
+    margin: 0;
+}
+
+.search-bar{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.search-form-field {
+    width: 300px;
+  }
+
+.footer-container{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
+.loader{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 30vh;
+}

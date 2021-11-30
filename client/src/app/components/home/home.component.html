@@ -1,0 +1,197 @@
+<div class="container">
+	<mat-accordion>
+		<mat-expansion-panel hideToggle>
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					Use me to apply Filters
+				</mat-panel-title>
+				<mat-panel-description>
+					Open to see all filters
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+			<div class="search-bar">
+				<mat-form-field appearance="fill">
+					<mat-label>Filter by Genres</mat-label>
+					<mat-select [(ngModel)]="selectedValue" name="Genre">
+						<mat-option
+							(click)="addGenreToFilter(genre.name)"
+							*ngFor="let genre of allGenres"
+							[value]="genre.name"
+						>
+							{{genre.name}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field class="search-form-field" appearance="fill">
+					<mat-label>Search</mat-label>
+					<input matInput type="text" name="search" [(ngModel)]="search" />
+					<button
+						*ngIf="search"
+						matSuffix
+						mat-icon-button
+						aria-label="Clear"
+						(click)="search=''"
+					>
+						<mat-icon>close</mat-icon>
+					</button>
+					<button
+						matSuffix
+						mat-icon-button
+						aria-label="Search"
+						(click)="searchFor(search)"
+					>
+						<mat-icon>search</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+			<mat-form-field
+				class="search-chip-list"
+				appearance="fill"
+				*ngIf="genres.length"
+			>
+				<mat-label>Selected Genres</mat-label>
+				<mat-chip-list #chipList aria-label="Genre selection">
+					<mat-chip
+						*ngFor="let genre of genres"
+						[selectable]="selectable"
+						[removable]="removable"
+						(removed)="remove(genre)"
+					>
+						{{genre.name}}
+						<button matChipRemove *ngIf="removable">
+							<mat-icon>cancel</mat-icon>
+						</button>
+					</mat-chip>
+				</mat-chip-list>
+			</mat-form-field>
+			<div class="search-bar">
+				<mat-form-field appearance="fill">
+					<mat-label>Filter by Status</mat-label>
+					<mat-select [(ngModel)]="status" name="status">
+						<mat-option
+							(click)="status=s.value"
+							*ngFor="let s of selectStatus"
+							[value]="s.value"
+						>
+							{{s.name.split('_').join(' ')}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field appearance="fill">
+					<mat-label>Filter by Genres</mat-label>
+					<mat-select [(ngModel)]="format" name="format">
+						<mat-option
+							(click)="format=s.value"
+							*ngFor="let s of selectFormat"
+							[value]="s.value"
+						>
+							{{s.name.split('_').join(' ')}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field appearance="fill">
+					<mat-label>Filter by Genres</mat-label>
+					<mat-select [(ngModel)]="sessionPeriod" name="sessionPeriod">
+						<mat-option
+							(click)="sessionPeriod=s.value"
+							*ngFor="let s of selectSession"
+							[value]="s.value"
+						>
+							{{s.name.split('_').join(' ')}}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field class="search-form-field" appearance="fill">
+					<mat-label>Search By Year</mat-label>
+					<input
+						matInput
+						type="number"
+						name="sessionYear"
+						[(ngModel)]="sessionYear"
+					/>
+					<button
+						*ngIf="sessionYear"
+						matSuffix
+						mat-icon-button
+						aria-label="Clear"
+						(click)="sessionYear=0"
+					>
+						<mat-icon>close</mat-icon>
+					</button>
+				</mat-form-field>
+			</div>
+			<h3 style="text-align: center;">Sort By</h3>
+			<div style="display: flex; flex-direction: row; justify-content: space-around;">
+				<table matSort (matSortChange)="sortData($event)">
+					<tr>
+						<th mat-sort-header="title">Title</th>
+						<th mat-sort-header="episodes_count">Episode Count</th>
+						<th mat-sort-header="episode_duration">Episode Duration</th>
+						<th mat-sort-header="score">Score</th>
+						<th mat-sort-header="start_date">Start Date</th>
+						<th mat-sort-header="end_date">End Date</th>
+						<th mat-sort-header="season_year">Season Year</th>
+					</tr>
+				</table>
+			</div>
+			
+			<div class="search-bar">
+				&nbsp;
+				<button mat-raised-button color="primary" (click)="applyFilters()">
+					Apply Filter
+				</button>
+			</div>
+		</mat-expansion-panel>
+	</mat-accordion>
+	<br />
+	<mat-divider></mat-divider>
+	<br />
+	<div class="loader" *ngIf="isLoading">
+		<mat-spinner></mat-spinner>
+	</div>
+
+	<div *ngIf="!isLoading">
+		<div *ngIf="!animeList.length" style="text-align: center;">
+			<h1>No Animes Found</h1>
+		</div>
+		<div *ngFor="let anime of animeList">
+			<mat-card (click)="openAnime(anime.id)">
+				<div class="flex-container">
+					<img src="{{anime.cover_image}}" alt="{{anime.titles.en}}" />
+					<div class="data-container">
+						<h2>
+							{{anime.titles.en}}
+						</h2>
+						<h3>
+							{{anime.titles.jp}}
+						</h3>
+						<h6>
+							{{anime.start_date | date: 'dd/MM/yyyy'}} - {{anime.end_date |
+							date: 'dd/MM/yyyy'}}
+						</h6>
+						<mat-chip-list aria-label="Genre">
+							<mat-chip
+								*ngFor="let genre of anime.genres | slice:0:10"
+								(click)="addGenreToFilter(genre)"
+								>{{genre}}
+							</mat-chip>
+						</mat-chip-list>
+					</div>
+				</div>
+			</mat-card>
+			<br />
+		</div>
+	</div>
+	<br />
+	<br />
+	<div class="footer-container">
+		<mat-paginator
+			[length]="length"
+			[pageSize]="pageSize"
+			[pageSizeOptions]="pageSizeOptions"
+			(page)="handlePageEvent($event)"
+			aria-label="clear"
+		>
+		</mat-paginator>
+	</div>
+</div>
