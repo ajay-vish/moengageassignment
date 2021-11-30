@@ -37,4 +37,8 @@ export class AuthService {
       this.isExpired = this.jwt.isTokenExpired(this.authToken);
     return !this.isExpired;
   }
+  logout(){
+    localStorage.removeItem('oauthToken')
+    return true;
+  }
 }

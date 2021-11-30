@@ -194,18 +194,11 @@ export class HomeComponent implements OnInit {
 		this.getAnimes();
 	}
 	sortData(e: any){
-		if(this.sortFields.includes(e.active)){
-			let i = this.sortFields.indexOf(e.active);
-			this.sortDirection[i] = e.direction == 'desc' ? -1 : 1
-			if(e.direction == ''){
-				if (i > -1) {
-					this.sortFields.splice(i, 1);
-					this.sortDirection.splice(i, 1);
-				}
-			}
-		}else{
-			this.sortFields.push(e.active);
-			this.sortDirection.push(e.direction == 'desc' ? -1 : 1)
+		this.sortFields = [e.active];
+		this.sortDirection= [e.direction == 'desc' ? -1 : 1]
+		if(e.direction == ''){
+			this.sortFields = [];
+			this.sortDirection= [];
 		}
 		this.isLoading = true;
 		this.getAnimes();

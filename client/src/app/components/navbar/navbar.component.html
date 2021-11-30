@@ -1,5 +1,15 @@
 <p>
-    <mat-toolbar>
-      <span>Welcome, {{name}}</span>
-    </mat-toolbar>
+	<mat-toolbar>
+		<div
+			style="
+      width: 100vw;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+			"
+		>
+			<span>Welcome, {{name}}</span>
+			<span (click)="logout()">Logout</span>
+		</div>
+	</mat-toolbar>
 </p>

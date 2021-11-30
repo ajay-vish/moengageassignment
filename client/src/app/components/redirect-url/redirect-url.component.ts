@@ -7,7 +7,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 	styleUrls: ["./redirect-url.component.css"],
 })
 export class RedirectUrlComponent implements OnInit {
-	currentRoute: any;
 	constructor(private router: Router, private activatedRoute: ActivatedRoute) {
 	}
 
@@ -23,6 +22,5 @@ export class RedirectUrlComponent implements OnInit {
 				this.router.navigate(['404'])
 			}
 		}
-		console.log(this.router.url);
   }
 }

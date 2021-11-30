@@ -33,20 +33,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
-import { SearchPageComponent } from './components/search-page/search-page.component';
 import { RedirectUrlComponent } from './components/redirect-url/redirect-url.component';
 import { ViewAnimeComponent } from './components/view-anime/view-anime.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { InternalServerErrorComponent } from './components/internal-server-error/internal-server-error.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     HomeComponent,
-    SearchPageComponent,
     RedirectUrlComponent,
     ViewAnimeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    InternalServerErrorComponent
   ],
   imports: [
     BrowserModule,

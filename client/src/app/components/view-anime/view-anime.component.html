@@ -19,7 +19,7 @@
 				<mat-chip-list aria-label="Genre">
 					<mat-chip *ngFor="let genre of anime.genres">{{genre}} </mat-chip>
 				</mat-chip-list>
-				<br/>
+				<br />
 				<h3>
 					<a href="{{anime.trailer_url}}">View youtube video</a>
 				</h3>
@@ -31,8 +31,23 @@
 					<h4>Start Date: {{anime.start_date | date: 'dd/MM/yyyy'}}</h4>
 					<h4>End Date: {{anime.end_date | date: 'dd/MM/yyyy'}}</h4>
 				</div>
-				<div *ngFor='let episode of episodes | slice:0:10'>
+				<div *ngFor="let episode of episodes | slice:0:10">
 					episode
+				</div>
+				<form>
+					<mat-form-field class="full-width" appearance="fill">
+						<mat-label>Leave a comment</mat-label>
+						<textarea matInput name="comment" [(ngModel)]= "comment" placeholder="Ex. It makes me feel..."></textarea>
+					</mat-form-field>
+					<button mat-raised-button color="primary" (click)='addComment()'>
+						Comment
+					</button>
+				</form>
+
+				<div *ngIf='comments.length'>
+					<h2>Comments</h2>
+					<mat-divider></mat-divider>
+					<h4>{{comments}}</h4>
 				</div>
 			</div>
 		</div>
